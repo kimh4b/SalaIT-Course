@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Teacher</title>
+</head>
+<body>
+
+    <nav>
+        <a href="/HTML Lesson/index.html">Home</a>
+        <a href="/HTML Lesson/teacher.html">Teachers</a>
+        <a href="/HTML Lesson/teacher-form.html">Add Teacher</a>
+        <a href="/HTML Lesson/course-form.html">Add Course</a>
+    </nav>
+
+    <h1>Teacher Registration</h1>
+
+    <form action="teachers.html" method="get">
+
+        <!-- 1. Teacher ID -->
+        <label for="teacherId">Teacher ID</label>
+        <input type="text" id="teacherId" name="teacherId"
+               required maxlength="10">
+
+        <br><br>
+
+        <!-- 2. Full Name -->
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name"
+               minlength="3" maxlength="50" required>
+
+        <br><br>
+
+        <!-- 3. Email -->
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email"
+               required>
+
+        <br><br>
+
+        <!-- 4. Phone -->
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone"
+               pattern="[0-9]{8,15}"
+               title="Enter 8 to 15 digits"
+               required>
+
+        <br><br>
+
+        <!-- 5. Gender -->
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <br><br>
+
+        <!-- 6. Department -->
+        <label for="department">Department</label>
+        <select id="department" name="department" required>
+            <option value="">Select Department</option>
+            <option value="IT">IT</option>
+            <option value="Business">Business</option>
+            <option value="Management">Management</option>
+        </select>
+
+        <br><br>
+
+        <!-- 7. Subject Specialization -->
+        <label for="subject">Subject Specialization</label>
+        <input type="text" id="subject" name="subject"
+               required maxlength="50">
+
+        <br><br>
+
+        <button type="submit">Register Teacher</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+</body>
+</html>
