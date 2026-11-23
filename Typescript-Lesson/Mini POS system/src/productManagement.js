@@ -6,12 +6,28 @@ class Product {
     price;
     stock;
     category;
+    static totalProducts = 0;
+    static getTotalProducts() {
+        return Product.totalProducts;
+    }
     constructor(id, name, price, stock, category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.category = category;
+        Product.totalProducts++;
+    }
+    get getPrice() {
+        return this.price;
+    }
+    set setPrice(newPrice) {
+        if (newPrice > 0) {
+            this.price = newPrice;
+        }
+    }
+    get getStock() {
+        return this.stock;
     }
     getProductInfo() {
         console.log(`ID: ${this.id}\nName: ${this.name}\nPrice: ${this.price}\nStock: ${this.stock}\nCategory: ${this.category}\n`);
@@ -21,14 +37,15 @@ class Product {
             this.getProductInfo();
         }
     }
-    updatePrice(newPrice) {
-        return this.price = newPrice;
-    }
     increaseStock(quantity) {
         return this.stock += quantity;
     }
     decreaseStock(quantity) {
-        return this.stock -= quantity;
+        let newStock = 0;
+        if (quantity > 0 && quantity <= this.stock) {
+            newStock = this.stock -= quantity;
+        }
+        return newStock;
     }
     isAvailable(quantity) {
         if (quantity <= this.stock) {
@@ -49,6 +66,7 @@ console.log("========== PRODUCT INFO ==========");
 for (const Item of Items) {
     Item.getProductById(1);
 }
+console.log(`Total Product: ${Product.getTotalProducts()}`);
 class Customer {
     id;
     name;
@@ -81,7 +99,7 @@ class CartItem {
         this.quantity = quantity;
     }
     getSubTotal() {
-        return this.product.price * this.quantity;
+        return this.product.getPrice * this.quantity;
     }
     updateQuantity(quantity) {
         return this.quantity = quantity;
@@ -100,7 +118,7 @@ class ShoppingCart {
         }
         for (const item of this.items) {
             console.log(`Product: ${item.product.name}`);
-            console.log(`Price: ${item.product.price}`);
+            console.log(`Price: ${item.product.getPrice}`);
             console.log(`Quantity: ${item.quantity}`);
             console.log(`Subtotal: ${item.getSubTotal()}\n`);
         }
@@ -109,7 +127,7 @@ class ShoppingCart {
         console.log('Thank you for shopping with us');
     }
     addItem(product, quantity) {
-        if (quantity > product.stock) {
+        if (quantity > product.getStock) {
             return "Not enough stock";
         }
         return this.items.push(new CartItem(product, quantity));
@@ -159,9 +177,6 @@ class Employee {
     }
 }
 class Payment {
-    processPayment(amount) {
-        console.log("Processing payment...");
-    }
 }
 class CashPayment extends Payment {
     processPayment(amount) {
@@ -173,10 +188,15 @@ class KHQRPayment extends Payment {
         console.log(`KHQR Payment: $${amount}`);
     }
 }
+class CardPayment extends Payment {
+    processPayment(amount) {
+        console.log(`Card payment: $${amount}`);
+    }
+}
 const payments = [
     new CashPayment(),
     new KHQRPayment(),
-    new CashPayment(),
+    new CardPayment(),
 ];
 payments.forEach(payment => {
     payment.processPayment(200);
